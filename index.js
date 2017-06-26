@@ -6,22 +6,24 @@ module.exports = Indexer
 function Indexer (osmdb) {
   if (!(this instanceof Indexer)) return new Indexer(osmdb)
 
+  var db = sub(osmdb.db, 'ts')
   var dex = indexer({
     log: osmdb.log,
-    db: sub(osmdb.db, 't'),
+    db: sub(osmdb.db, 'tsi'),
     map: function (row, next) {
-      db.get(row.value.k, function (err, doc) {
-        if (!doc) doc = {}
-        row.links.forEach(function (link) {
-          delete doc[link]
-        })
-        doc[row.key] = row.value.v
-        db.put(row.value.k, doc, next)
-      })
+      // Skip entries with no timestamp
+      if (!row.value || !row.value.v || !row.value.v.timestamp) {
+        return next()
+      }
+
+      var timestamp = row.value.v.timestamp
+      var version = row.key
+      db.put(timestamp, version, next)
     }
   })
 
   this.dex = dex
+  this.db = db
 }
 
 Indexer.prototype.ready = function (done) {
@@ -29,5 +31,5 @@ Indexer.prototype.ready = function (done) {
 }
 
 Indexer.prototype.getDocumentStream = function (opts) {
-  return this.dex.db.createValueStream(opts)
+  return this.db.createValueStream(opts)
 }
