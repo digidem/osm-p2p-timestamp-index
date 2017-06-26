@@ -1,8 +1,6 @@
 # osm-p2p-timestamp-index
 
-> Maintain an index of OSM documents' creation time.
-
-background details relevant to understanding what this module does
+> Maintain a queryable index of OSM documents' creation time.
 
 ## Usage
 
