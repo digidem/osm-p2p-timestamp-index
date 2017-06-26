@@ -43,20 +43,21 @@ module like [`osm-p2p`](https://github.com/digidem/osm-p2p).
 Calls the callback function `done` exactly once, when the indexer has finished
 indexing all documents in `osmdb`.
 
-### index.getDocuments([opts], done)
+### var stream = index.getDocumentStream([opts])
 
-Retrieves OSM documents by timestamp. Valid options for `opts` are
+Retrieves OSM documents by timestamp as a `Readable` stream. Valid options for
+`opts` are
 
-- `opts.gt`: No documents older than this time (in milliseconds since Epoch)
-  will be returned. Defaults to `0`.
-- `opts.lt`: No documents newer than this time (in milliseconds since Epoch)
-  will be returned. Defaults to `Infinity`.
+- `opts.gt, opts.gte`: No documents older than this time (in milliseconds since
+  Epoch) will be returned. Defaults to `0`.
+- `opts.lt, opts.lte`: No documents newer than this time (in milliseconds since
+  Epoch) will be returned. Defaults to `Infinity`.
 - `opts.limit`: The upper bound on number of documents to be returned.
 - `opts.reverse`: If `true`, the oldest documents will be returned first.
   Default is `false` (newest docs first).
 
-The callback function `done` should have the function signature `function done
-(err, docs)`.
+Errors are emitted to the stream, so remember to listen to `stream.on('error',
+function (err) { ... })`.
 
 ## Install
 
