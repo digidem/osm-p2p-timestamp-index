@@ -19,8 +19,11 @@
     "subleveldown": "^2.1.0"
   },
   "devDependencies": {
-    "tape": "~4.6.2",
-    "standard": "~10.0.0"
+    "concat-stream": "^1.6.0",
+    "osm-p2p": "^2.0.0",
+    "rimraf": "^2.6.1",
+    "standard": "~10.0.0",
+    "tape": "~4.6.2"
   },
   "license": "ISC"
 }
