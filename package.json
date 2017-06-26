@@ -1,0 +1,25 @@
+{
+  "name": "osm-p2p-timestamp-index",
+  "description": "maintain an index of OSM documents' creation time",
+  "author": "Stephen Whitmore <sww@eight.net>",
+  "version": "0.0.0",
+  "repository": {
+    "url": "git://github.com/noffle/osm-p2p-timestamp-index.git"
+  },
+  "homepage": "https://github.com/noffle/osm-p2p-timestamp-index",
+  "bugs": "https://github.com/noffle/osm-p2p-timestamp-index/issues",
+  "main": "index.js",
+  "scripts": {
+    "test": "tape test/*.js",
+    "lint": "standard"
+  },
+  "keywords": [],
+  "dependencies": {
+    "hyperlog-index": "^5.2.0"
+  },
+  "devDependencies": {
+    "tape": "~4.6.2",
+    "standard": "~10.0.0"
+  },
+  "license": "ISC"
+}
