@@ -23,7 +23,7 @@ test('3 docs', function (t) {
     if (--pending !== 0) return
 
     index.ready(function () {
-      index.getDocumentStream().pipe(concat({encoding:'object'}, onVersions))
+      index.getDocumentStream().pipe(concat({encoding: 'object'}, onVersions))
 
       function onVersions (versions) {
         var expected = [
