@@ -26,7 +26,7 @@ function onWritten (err, doc) {
 }
 ```
 
-outputs the version IDs of the documents:
+outputs the version IDs of the documents, from newest to oldest:
 
 ```
 ae4faa3c17ff4e6ee50471bbc629188c45098fa77124382d08e0e4fbd77e5c94
