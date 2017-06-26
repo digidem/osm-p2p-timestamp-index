@@ -18,7 +18,7 @@ function Indexer (osmdb) {
 
       var timestamp = row.value.v.timestamp
       var version = row.key
-      db.put(timestamp, version, next)
+      db.put(timestamp + '_' + version, version, next)
     }
   })
 
