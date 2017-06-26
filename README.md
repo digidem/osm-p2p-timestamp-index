@@ -13,16 +13,27 @@ var OsmP2p = require('osm-p2p')
 var osmdb = OsmP2p('/tmp/my-db')
 var index = osmP2pTimestampIndex(osmdb)
 
-var stream = index.getDocumentStream({
-  lt: new Date().getTime(),
-  gt: new Date().getTime() - 1000 * 60 * 60 * 10  // 10 hours ago
-})
+var pending = 3
+osmdb.put('foo', { type: 'node', lon: 0, lat: 0, timestamp: new Date().getTime() }, onWritten)
+osmdb.put('bar', { type: 'node', lon: 1, lat: 1, timestamp: new Date().getTime() }, onWritten)
+osmdb.put('baz', { type: 'node', lon: 2, lat: 2, timestamp: new Date().getTime() }, onWritten)
+
+function onWritten (err, doc) {
+  if (--pending !== 0) return
+
+  index.ready(function () {
+    var stream = index.getDocumentStream()
+    stream.on('data', console.log)
+  })
+}
 ```
 
-outputs
+outputs the version IDs of the documents:
 
 ```
-hello warld
+ae4faa3c17ff4e6ee50471bbc629188c45098fa77124382d08e0e4fbd77e5c94
+324e841fbe4daf470a148cd1b65a9a91dab7f9255ffbe4000fa298fe63023ff1
+664058630b0da6ea9b119e3af1ff9cd98d52d3318a6d79216e7192063a73b610
 ```
 
 ## API
